@@ -9,10 +9,12 @@ const gameBoard = (function () {
         return boardArray;
     }
 
+    // Checks (x, y) in array
     function isAvailable(x, y) {
         return (boardArray[x][y] == '') ? true : false;
     }
 
+    // If index is available then add mark, else return false
     function addMark(x, y, mark) {
         if (isAvailable(x, y)) {
             boardArray[x][y] = mark;
@@ -21,6 +23,7 @@ const gameBoard = (function () {
         }
     }
 
+    // Loop through array and set all entries to ''
     function resetBoard() {
         boardArray.forEach((row, rowIndex) => {
             row.forEach((cell, cellIndex) => {
@@ -79,6 +82,8 @@ const gameController = (function() {
     }
 
     function playRound(x, y) {
+        // Add mark if empty
+        // Checks for winning conditions, if not change mark
         if (gameBoard.addMark(x, y, currentMark) == false) return;
         if (checkForWinner(gameBoard.getBoard())) {
             endRound(currentMark)
@@ -114,6 +119,7 @@ const gameController = (function() {
 
 
 const displayController = (function() {
+    // Creates all elements based on values in passed array
     function createGrid(array) {
         const gridContainer = document.querySelector('.gameContainer');
         array.forEach((row, rowIndex) => {
@@ -130,6 +136,7 @@ const displayController = (function() {
         })
     }
 
+    // If cell is available, play round on that cell
     function cellClick(row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
         gameController.playRound(row, cell)
@@ -137,6 +144,7 @@ const displayController = (function() {
         createGrid(gameBoard.getBoard())
     }
 
+    // Removes all cells from the board
     function deleteBoard() {
         const board = document.querySelectorAll('.cell');
         board.forEach(element => {
