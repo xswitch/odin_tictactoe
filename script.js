@@ -78,7 +78,7 @@ const gameController = (function() {
     }
 
     function playRound(x, y) {
-        if (gameBoard.addMark(x, y, currentMark) == false) return;;
+        if (gameBoard.addMark(x, y, currentMark) == false) return;
         if (!checkForWinner(gameBoard.getBoard())) {
             if (checkForTie(gameBoard.getBoard())) endRound('tie')
         } else {
@@ -119,12 +119,21 @@ const displayController = (function() {
                 const element = document.createElement('div');
                 element.classList.add('cell');
                 element.classList.add('free');
-                element.textContent = `row ${rowIndex} cell ${cellIndex}`
+                element.textContent = array[rowIndex][cellIndex]
                 element.addEventListener('click', () => {
                     gameController.playRound(rowIndex, cellIndex)
+                    deleteBoard()
+                    createGrid(gameBoard.getBoard())
                 })
                 gridContainer.appendChild(element);
             })
+        })
+    }
+
+    function deleteBoard() {
+        const board = document.querySelectorAll('.cell');
+        board.forEach(element => {
+            element.remove()
         })
     }
 
