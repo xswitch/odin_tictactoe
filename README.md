@@ -1,4 +1,5 @@
 # odin_tictactoe
 
-> Check select outputs from boardArray to see if they are all equal
-> Only select possible winning combinations
+> Check if x, y is available - DONE
+> Check for a tie - DONE
+> Create board elements

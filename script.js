@@ -1,16 +1,20 @@
 const gameBoard = (function () {
     let boardArray = 
-    [[0, 0, 0],
-     [0, 0, 0],
-     [0, 0, 0]];
+    [['', '', ''],
+     ['', '', ''],
+     ['', '', '']];
 
     // Returns boardArray
     function getBoard() {
         return boardArray;
     }
 
+    function isAvailable(x, y) {
+        return (boardArray[x][y] == '') ? true : false;
+    }
+
     function addMark(x, y, mark) {
-        if (boardArray[x][y] == 0) boardArray[x][y] = mark;
+        if (isAvailable(x, y)) boardArray[x][y] = mark;
     }
 
     return {
@@ -50,8 +54,24 @@ const gameController = (function() {
         return winner;
     }
 
+    // Check for tie
+    function checkForTie(array) {
+        let tie = true;
+
+        array.forEach(row => {
+            if (row.includes('')) tie = false;
+        })
+
+        return tie;
+    }
+
     function playRound(x, y) {
         gameBoard.addMark(x, y, currentMark);
+        if (!checkForWinner(gameBoard.getBoard())) {
+            if (checkForTie(gameBoard.getBoard())) console.log(`A TIE!`);
+        } else {
+            console.log(`${currentMark} WINS!`);
+        }
         changeMark()
     }
 
@@ -71,9 +91,14 @@ const gameController = (function() {
     }
 })()
 
-gameController.playRound(1, 0)
-gameController.playRound(0, 0)
-gameController.playRound(1, 1)
 gameController.playRound(0, 1)
+gameController.playRound(0, 0)
+gameController.playRound(0, 2)
+gameController.playRound(1, 1)
+gameController.playRound(1, 0)
+gameController.playRound(1, 2)
+gameController.playRound(2, 1)
+gameController.playRound(2, 0)
+gameController.playRound(2, 2)
 console.log(gameBoard.getBoard());
 console.log(gameController.checkForWinner(gameBoard.getBoard()));
