@@ -76,17 +76,17 @@ const gameController = (function() {
     function playRound(x, y) {
         gameBoard.addMark(x, y, currentMark);
         if (!checkForWinner(gameBoard.getBoard())) {
-            if (checkForTie(gameBoard.getBoard())) console.log(`A TIE!`);
+            if (checkForTie(gameBoard.getBoard())) endRound('tie')
         } else {
-            console.log(`${currentMark} WINS!`);
-            endRound()
+            endRound(currentMark)
         }
         changeMark()
     }
 
-    function endRound() {
+    function endRound(result) {
         currentMark = 'x';
         gameBoard.resetBoard();
+        console.log(result);
     }
 
     function getMark() {
