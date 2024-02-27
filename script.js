@@ -33,6 +33,7 @@ const gameBoard = (function () {
         getBoard,
         addMark,
         resetBoard,
+        isAvailable,
     }
 })()
 
@@ -84,7 +85,6 @@ const gameController = (function() {
         } else {
             endRound(currentMark)
         }
-        console.log(`${currentMark} placed on ${[x, y]}`);
         changeMark()
     }
 
@@ -118,16 +118,21 @@ const displayController = (function() {
             row.forEach((cell, cellIndex) => {
                 const element = document.createElement('div');
                 element.classList.add('cell');
-                element.classList.add('free');
+                if (array[rowIndex][cellIndex] == '') element.classList.add('free')
                 element.textContent = array[rowIndex][cellIndex]
                 element.addEventListener('click', () => {
-                    gameController.playRound(rowIndex, cellIndex)
-                    deleteBoard()
-                    createGrid(gameBoard.getBoard())
+                    cellClick(rowIndex, cellIndex)
                 })
                 gridContainer.appendChild(element);
             })
         })
+    }
+
+    function cellClick(row, cell) {
+        if (!gameBoard.isAvailable(row, cell)) return;
+        gameController.playRound(row, cell)
+        deleteBoard()
+        createGrid(gameBoard.getBoard())
     }
 
     function deleteBoard() {
