@@ -1,8 +1,8 @@
 const gameBoard = (function () {
     let boardArray = 
-    [[1, 'x', 1],
-     [0, 'x', 1],
-     [0, 'x', 1]];
+    [[0, 0, 0],
+     [0, 0, 0],
+     [0, 0, 0]];
 
     let currentMark = 'x'
 
@@ -23,6 +23,10 @@ const gameBoard = (function () {
         boardArray[0].forEach((column, index) => {
             if (allEqual([column, boardArray[1][index], boardArray[2][index]])) winner = true;
         })
+
+        // Check diagonal
+        if (allEqual([boardArray[0][0], boardArray[1][1], boardArray[2][2]])) winner = true;
+        if (allEqual([boardArray[0][2], boardArray[1][1], boardArray[2][0]])) winner = true;
 
         return winner;
     }
