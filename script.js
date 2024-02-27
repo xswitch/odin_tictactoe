@@ -17,9 +17,18 @@ const gameBoard = (function () {
         if (isAvailable(x, y)) boardArray[x][y] = mark;
     }
 
+    function resetBoard() {
+        boardArray.forEach((row, rowIndex) => {
+            row.forEach((cell, cellIndex) => {
+                boardArray[rowIndex][cellIndex] = ''
+            })
+        })
+    }
+
     return {
         getBoard,
         addMark,
+        resetBoard,
     }
 })()
 
@@ -38,7 +47,6 @@ const gameController = (function() {
 
         // Checks rows
         array.forEach(row => {
-            console.log(row[0]);
             if (allEqual(row)) winner = true;
         })
 
@@ -71,8 +79,14 @@ const gameController = (function() {
             if (checkForTie(gameBoard.getBoard())) console.log(`A TIE!`);
         } else {
             console.log(`${currentMark} WINS!`);
+            endRound()
         }
         changeMark()
+    }
+
+    function endRound() {
+        currentMark = 'x';
+        gameBoard.resetBoard();
     }
 
     function getMark() {
@@ -90,15 +104,3 @@ const gameController = (function() {
         playRound,
     }
 })()
-
-gameController.playRound(0, 1)
-gameController.playRound(0, 0)
-gameController.playRound(0, 2)
-gameController.playRound(1, 1)
-gameController.playRound(1, 0)
-gameController.playRound(1, 2)
-gameController.playRound(2, 1)
-gameController.playRound(2, 0)
-gameController.playRound(2, 2)
-console.log(gameBoard.getBoard());
-console.log(gameController.checkForWinner(gameBoard.getBoard()));
