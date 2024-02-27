@@ -84,6 +84,7 @@ const gameController = (function() {
         } else {
             endRound(currentMark)
         }
+        console.log(`${currentMark} placed on ${[x, y]}`);
         changeMark()
     }
 
@@ -107,4 +108,25 @@ const gameController = (function() {
         changeMark,
         playRound,
     }
+})()
+
+
+const displayController = (function() {
+    function createGrid(array) {
+        const gridContainer = document.querySelector('.gameContainer');
+        array.forEach((row, rowIndex) => {
+            row.forEach((cell, cellIndex) => {
+                const element = document.createElement('div');
+                element.classList.add('cell');
+                element.classList.add('free');
+                element.textContent = `row ${rowIndex} cell ${cellIndex}`
+                element.addEventListener('click', () => {
+                    gameController.playRound(rowIndex, cellIndex)
+                })
+                gridContainer.appendChild(element);
+            })
+        })
+    }
+
+    createGrid(gameBoard.getBoard());
 })()
