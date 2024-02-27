@@ -1,6 +1,11 @@
 # odin_tictactoe
 
 > Check if x, y is available - Reset turn and ask player to pick again if unavailable
-> Create board elements
->> Loop through gameBoard array and create div based on result
->> Add event listener on click that plays round based on (x, y) in array
+
+> Events for winning, losing, and ties
+> More styling
+> Choose mark
+> Restart and start button
+> Scoreboard
+> Remove auto restart, show resulting board until restart is pressed.
+> Show who's turn it is
