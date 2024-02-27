@@ -80,12 +80,14 @@ const gameController = (function() {
 
     function playRound(x, y) {
         if (gameBoard.addMark(x, y, currentMark) == false) return;
-        if (!checkForWinner(gameBoard.getBoard())) {
-            if (checkForTie(gameBoard.getBoard())) endRound('tie')
-        } else {
+        if (checkForWinner(gameBoard.getBoard())) {
             endRound(currentMark)
+            if (checkForTie(gameBoard.getBoard()));
+        } else if (checkForTie(gameBoard.getBoard())) {
+            endRound('tie')
+        } else {
+            changeMark()
         }
-        changeMark()
     }
 
     function endRound(result) {
@@ -119,7 +121,7 @@ const displayController = (function() {
                 const element = document.createElement('div');
                 element.classList.add('cell');
                 if (array[rowIndex][cellIndex] == '') element.classList.add('free')
-                element.textContent = array[rowIndex][cellIndex]
+                element.textContent = cell;
                 element.addEventListener('click', () => {
                     cellClick(rowIndex, cellIndex)
                 })

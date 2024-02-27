@@ -38,6 +38,10 @@ main {
 .cell {
     background-color: rgb(180, 180, 180);
     transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150px;
 }
 
 .cell:hover.free {
