@@ -14,7 +14,11 @@ const gameBoard = (function () {
     }
 
     function addMark(x, y, mark) {
-        if (isAvailable(x, y)) boardArray[x][y] = mark;
+        if (isAvailable(x, y)) {
+            boardArray[x][y] = mark;
+        } else {
+            return false;
+        }
     }
 
     function resetBoard() {
@@ -74,7 +78,7 @@ const gameController = (function() {
     }
 
     function playRound(x, y) {
-        gameBoard.addMark(x, y, currentMark);
+        if (gameBoard.addMark(x, y, currentMark) == false) return;;
         if (!checkForWinner(gameBoard.getBoard())) {
             if (checkForTie(gameBoard.getBoard())) endRound('tie')
         } else {
