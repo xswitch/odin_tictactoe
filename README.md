@@ -1,7 +1,5 @@
 # odin_tictactoe
 
-> Made cells change class if the same check as playRound goes through was passed.
-
 > Choose mark - associate mark with player1 or 2
 >> Create players, store them in an object in gameController, reference this object when doing anything that has to do with the player.
 

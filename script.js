@@ -42,7 +42,8 @@ const gameBoard = (function () {
 
 const gameController = (function() {
 
-    let currentMark = 'x';
+    const marks = ['X', 'O'];
+    let currentMark = marks[0];
 
     // Checks if all values in an array matches "currentMark"
     function allEqual(array) {
@@ -97,10 +98,9 @@ const gameController = (function() {
 
     function endRound(result) {
         currentMark = 'x';
-        console.log(gameBoard.getBoard());
         gameBoard.resetBoard();
         displayController.resetBoardElements();
-        console.log(result);
+        console.log(`${result} Won!`);
     }
 
     function getMark() {
@@ -108,7 +108,7 @@ const gameController = (function() {
     }
 
     function changeMark() {
-        (currentMark == 'x') ? currentMark = 'o' : currentMark = 'x';
+        (currentMark == marks[0]) ? currentMark = marks[1] : currentMark = marks[0];
     }
 
     return {
