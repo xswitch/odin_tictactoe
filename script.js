@@ -154,3 +154,31 @@ const displayController = (function() {
 
     createGrid(gameBoard.getBoard());
 })()
+
+function createPlayer(mark) {
+    let score = 0;
+    let currentMark = mark;
+
+    function updateScore() {
+        score++;
+    }
+
+    function getScore() {
+        return score;
+    }
+
+    function changeMark(newMark) {
+        currentMark = newMark;
+    }
+
+    function getMark() {
+        return currentMark;
+    }
+
+    return {
+        updateScore,
+        getScore,
+        changeMark,
+        getMark,
+    }
+}

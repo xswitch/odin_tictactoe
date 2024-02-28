@@ -4,7 +4,7 @@
 
 > Events for winning, losing, and ties
 > More styling
-> Choose mark
+> Choose mark - associate mark with player1 or 2
 > Restart and start button
 > Scoreboard
 > Remove auto restart, show resulting board until restart is pressed.
