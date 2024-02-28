@@ -121,6 +121,7 @@ const gameController = (function() {
 const displayController = (function() {
     // Creates all elements based on values in passed array
     function createGrid(array) {
+        console.log('Creating Grid.');
         const gridContainer = document.querySelector('.gameContainer');
         array.forEach((row, rowIndex) => {
             row.forEach((cell, cellIndex) => {
@@ -128,8 +129,8 @@ const displayController = (function() {
                 element.classList.add('cell');
                 if (array[rowIndex][cellIndex] == '') element.classList.add('free')
                 element.textContent = cell;
-                element.addEventListener('click', () => {
-                    cellClick(rowIndex, cellIndex)
+                element.addEventListener('click', (e) => {
+                    cellClick(e, rowIndex, cellIndex)
                 })
                 gridContainer.appendChild(element);
             })
@@ -137,11 +138,11 @@ const displayController = (function() {
     }
 
     // If cell is available, play round on that cell
-    function cellClick(row, cell) {
+    function cellClick(e, row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
+        e.target.textContent = gameController.getMark();
         gameController.playRound(row, cell)
-        deleteBoard()
-        createGrid(gameBoard.getBoard())
+        e.target.classList.remove('free');
     }
 
     // Removes all cells from the board

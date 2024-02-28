@@ -1,8 +1,6 @@
 # odin_tictactoe
 
-> Maybe look into updating cells instead of creating new ones on every turn.
->> Creating new ones ruins styling as they start in default state.
->> Upon cells first creation add them into a copy of the gameBoard array so they can be referenced with (x, y)
+> Made cells change class if the same check as playRound goes through was passed.
 
 > Choose mark - associate mark with player1 or 2
 >> Create players, store them in an object in gameController, reference this object when doing anything that has to do with the player.
