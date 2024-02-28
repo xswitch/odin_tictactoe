@@ -97,7 +97,9 @@ const gameController = (function() {
 
     function endRound(result) {
         currentMark = 'x';
+        console.log(gameBoard.getBoard());
         gameBoard.resetBoard();
+        displayController.resetBoardElements();
         console.log(result);
     }
 
@@ -121,13 +123,12 @@ const gameController = (function() {
 const displayController = (function() {
     // Creates all elements based on values in passed array
     function createGrid(array) {
-        console.log('Creating Grid.');
         const gridContainer = document.querySelector('.gameContainer');
         array.forEach((row, rowIndex) => {
             row.forEach((cell, cellIndex) => {
                 const element = document.createElement('div');
                 element.classList.add('cell');
-                if (array[rowIndex][cellIndex] == '') element.classList.add('free')
+                element.classList.add('free')
                 element.textContent = cell;
                 element.addEventListener('click', (e) => {
                     cellClick(e, rowIndex, cellIndex)
@@ -141,19 +142,22 @@ const displayController = (function() {
     function cellClick(e, row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
         e.target.textContent = gameController.getMark();
-        gameController.playRound(row, cell)
         e.target.classList.remove('free');
+        gameController.playRound(row, cell)
     }
 
     // Removes all cells from the board
-    function deleteBoard() {
+    function resetBoardElements() {
         const board = document.querySelectorAll('.cell');
         board.forEach(element => {
-            element.remove()
+            element.textContent = '';
+            element.classList.add('free');
         })
     }
 
     createGrid(gameBoard.getBoard());
+
+    return {resetBoardElements,}
 })()
 
 function createPlayer(mark) {
