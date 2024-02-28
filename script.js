@@ -97,7 +97,7 @@ const gameController = (function() {
     }
 
     function endRound(result) {
-        currentMark = 'x';
+        currentMark = marks[0];
         gameBoard.resetBoard();
         displayController.resetBoardElements();
         console.log(`${result} Won!`);
