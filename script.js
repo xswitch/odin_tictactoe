@@ -216,3 +216,9 @@ function createPlayer(mark) {
         getMark,
     }
 }
+
+function toggleModal(target) {
+    const targetModal = (target == 1) ? document.querySelector('.menu') : document.querySelector('.roundEnd')
+    console.log(targetModal);
+    targetModal.classList.toggle('show')
+}

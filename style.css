@@ -55,3 +55,24 @@ main {
 .cell.free {
     cursor: pointer;
 }
+
+/* MODAL - MENU */
+
+.menu.show,
+.roundEnd.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.menu,
+.roundEnd {
+    height: 100dvh;
+    width: 100dvw;
+    position: absolute;
+    background-color: rgba(150, 150, 150, 0.7);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+/* MODAL - END ROUND */
