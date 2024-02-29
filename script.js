@@ -104,7 +104,11 @@ const gameController = (function() {
     }
 
     function getMark() {
-        return currentMark;
+        return [currentMark, getMarkIndex()];
+    }
+
+    function getMarkIndex() {
+        return marks.indexOf(currentMark);
     }
 
     function changeMark() {
@@ -122,8 +126,8 @@ const gameController = (function() {
 
 const displayController = (function() {
     const imageUrls = [
-        "url('/img/cross-outline.svg'",
-        "url('/img/circle-outline.svg'",
+        ["url('/img/cross-outline.svg'", "url('/img/cross.svg'"],
+        ["url('/img/circle-outline.svg'", "url('/img/circle.svg'"],
     ]
 
     // Creates all elements based on values in passed array
@@ -152,7 +156,7 @@ const displayController = (function() {
     // If cell is available, play round on that cell
     function cellClick(e, row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
-        e.target.textContent = gameController.getMark();
+        e.target.style.backgroundImage = imageUrls[gameController.getMark()[1]][1]
         e.target.classList.remove('free');
         gameController.playRound(row, cell)
     }
@@ -160,7 +164,8 @@ const displayController = (function() {
     // 
     function cellHover(e, row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
-        (gameController.getMark() == 'X') ? e.target.style.backgroundImage = imageUrls[0] : e.target.style.backgroundImage = imageUrls[1]
+        e.target.style.backgroundImage = imageUrls[gameController.getMark()[1]][0]
+
     }
 
     function cellLeave(e, row, cell) {
