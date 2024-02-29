@@ -6,7 +6,8 @@
 }
 
 h1 {
-    color: dimgray;
+    color: black;
+    text-shadow: dimgray 1px 0 10px;
     font-size: 3rem;
 }
 
@@ -33,7 +34,7 @@ main {
     overflow: hidden;
     gap: 5px;
     border: 5px solid dimgray;
-    box-shadow: 0px 0px 15px 5px dimgray;
+    box-shadow: 0px 0px 25px 10px dimgray;
 }
 
 .cell {

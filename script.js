@@ -161,13 +161,14 @@ const displayController = (function() {
         gameController.playRound(row, cell)
     }
 
-    // 
+    // If cell is available, change background to hover version
     function cellHover(e, row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
         e.target.style.backgroundImage = imageUrls[gameController.getMark()[1]][0]
 
     }
 
+    // Revert back to no background image
     function cellLeave(e, row, cell) {
         if (!gameBoard.isAvailable(row, cell)) return;
         e.target.style.backgroundImage = ""
