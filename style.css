@@ -56,7 +56,7 @@ main {
     cursor: pointer;
 }
 
-/* MODAL - MENU */
+/* MODAL */
 
 .menu.show,
 .roundEnd.show {
@@ -72,7 +72,125 @@ main {
     background-color: rgba(150, 150, 150, 0.7);
     visibility: hidden;
     opacity: 0;
-    transition: all 0.3s;
+    transition: all 0.5s;
 }
 
-/* MODAL - END ROUND */
+/* MENU */
+
+.menu {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    grid-template-columns: 550px;
+}
+
+.menuContainer {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(40, 40, 40, 1);
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    padding: 0px 25px 25px 25px;
+}
+
+.menuContainer>h1 {
+    color: white;
+}
+
+.menuOptions {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.playerContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.playerContainer>div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+input.playerName {
+    width: 200px;
+    height: 50px;
+    font-size: 1.5rem;
+    background: none;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+div.playerMark {
+    height: 200px;
+    width: 200px;
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.changeMark {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+    background: url("img/change.svg") no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.changeMark:hover {
+    transition: all 0.2s;
+    background-color: rgba(70, 70, 70, 0.7);
+}
+
+.changeMark:active {
+    background-color: rgba(150, 150, 150, 0.7);
+}
+
+.player1Menu>.playerMark {
+    background-image: url("img/cross.svg");
+}
+
+.player2Menu>.playerMark {
+    background-image: url("img/circle.svg");
+}
+
+.playerMark {
+    background-size: contain;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+}
+
+.startGame {
+    background: none;
+    font-size: 2rem;
+    height: 50px;
+    border: 2px solid white;
+    color: white;
+    border-radius: 10px;
+    text-shadow: dimgray 1px 0 10px;
+}
+
+.startGame:hover {
+    background-color: rgba(100, 100, 100, 0.5);
+    transition: 0.2s all;
+    cursor: pointer;
+}
+/* ROUND END */
+
