@@ -100,7 +100,6 @@ const gameController = (function() {
         currentMark = marks[0];
         gameBoard.resetBoard();
         displayController.resetBoardElements();
-        console.log(`${result} Won!`);
     }
 
     function getMark() {
@@ -219,6 +218,5 @@ function createPlayer(mark) {
 
 function toggleModal(target) {
     const targetModal = (target == 1) ? document.querySelector('.menu') : document.querySelector('.roundEnd')
-    console.log(targetModal);
     targetModal.classList.toggle('show')
 }
