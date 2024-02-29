@@ -121,6 +121,11 @@ const gameController = (function() {
 
 
 const displayController = (function() {
+    const imageUrls = [
+        "url('/img/cross-outline.svg'",
+        "url('/img/circle-outline.svg'",
+    ]
+
     // Creates all elements based on values in passed array
     function createGrid(array) {
         const gridContainer = document.querySelector('.gameContainer');
@@ -132,6 +137,12 @@ const displayController = (function() {
                 element.textContent = cell;
                 element.addEventListener('click', (e) => {
                     cellClick(e, rowIndex, cellIndex)
+                })
+                element.addEventListener('mouseover', (e) => {
+                    cellHover(e, rowIndex, cellIndex)
+                })
+                element.addEventListener('mouseleave', (e) => {
+                    cellLeave(e, rowIndex, cellIndex)
                 })
                 gridContainer.appendChild(element);
             })
@@ -146,12 +157,24 @@ const displayController = (function() {
         gameController.playRound(row, cell)
     }
 
+    // 
+    function cellHover(e, row, cell) {
+        if (!gameBoard.isAvailable(row, cell)) return;
+        (gameController.getMark() == 'X') ? e.target.style.backgroundImage = imageUrls[0] : e.target.style.backgroundImage = imageUrls[1]
+    }
+
+    function cellLeave(e, row, cell) {
+        if (!gameBoard.isAvailable(row, cell)) return;
+        e.target.style.backgroundImage = ""
+    }
+
     // Removes all cells from the board
     function resetBoardElements() {
         const board = document.querySelectorAll('.cell');
         board.forEach(element => {
             element.textContent = '';
             element.classList.add('free');
+            element.style.backgroundImage = ''
         })
     }
 

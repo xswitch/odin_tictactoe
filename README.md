@@ -13,7 +13,9 @@
 >>> Start/restart buttons - Display as a modal before first game and after a game
 >>> Choose mark - In same modal as start/restart buttons
 >>> Who's turn it is - Show player name/number and mark in game window
+
 >>> Cleaner X and O. Separate cells with better styling for visualizing hover and click. 
+>>>> Svg's for X and O, can be used when showing which player is currently placing, and as a transparent version when hovering.
 
 > Remove auto restart, show resulting board until restart is pressed.
 >> Stop reset on roundEnd
