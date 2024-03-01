@@ -200,3 +200,45 @@ div.playerMark {
 }
 /* ROUND END */
 
+.roundEnd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.endContainer {
+    background-color: rgba(40, 40, 40, 1);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.endContainer>h1 {
+    color: white;
+}
+
+.endButtonContainer {
+    display: flex;
+    gap: 25px;
+}
+
+.endButtonContainer>button {
+    height: 50px;
+    font-size: 2rem;
+    background: none;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    width: 200px;
+}
+
+.endButtonContainer>button:hover {
+    background-color: rgba(70, 70, 70, 0.7);
+    cursor: pointer;
+}
