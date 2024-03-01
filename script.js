@@ -44,7 +44,7 @@ const gameController = (function() {
 
     const marks = ['X', 'O'];
     let currentPlayer;
-    const players = [];
+    let players = [];
     let playing = true;
 
     // Checks if all values in an array matches "currentMark"
@@ -90,7 +90,7 @@ const gameController = (function() {
         if (!playing) return;
         if (gameBoard.addMark(x, y, currentPlayer.getMark()) == false) return;
         if (checkForWinner(gameBoard.getBoard())) {
-            endRound(currentPlayer.getMark())
+            endRound(currentPlayer)
             if (checkForTie(gameBoard.getBoard()));
         } else if (checkForTie(gameBoard.getBoard())) {
             endRound('tie')
@@ -100,10 +100,11 @@ const gameController = (function() {
     }
 
     function endRound(result) {
-        currentPlayer.updateScore()
-        console.log(`${currentPlayer.getName()} Wins. Current Score: ${currentPlayer.getScore()}`);
+        displayController.changeWinningText(result);
+        if (result != 'tie') currentPlayer.updateScore()
         currentPlayer = players[0];
         toggleState(false)
+        displayController.toggleModal(2);
     }
 
     function getMark() {
@@ -162,6 +163,11 @@ const gameController = (function() {
         (currentPlayer == players[0]) ? currentPlayer = players[1] : currentPlayer = players[0];
     }
 
+    function resetPlayers() {
+        players = [];
+        currentPlayer = ''
+    }
+
     return {
         checkForWinner,
         getMark,
@@ -169,6 +175,8 @@ const gameController = (function() {
         playRound,
         setupPlayers,
         getState,
+        toggleState,
+        resetPlayers,
     }
 })()
 
@@ -233,7 +241,7 @@ const displayController = (function() {
         })
     }
 
-    // Sets up newGame modal
+    // Sets up newGame and roundEnd modal
     function initModal() {
         // Changes marks and matches them to their respective indexes.
         const switchMarkElement = document.querySelector('.changeMark');
@@ -254,8 +262,26 @@ const displayController = (function() {
         const startGameButton = document.querySelector('.startGame');
         startGameButton.addEventListener('click', () => {
             gameController.setupPlayers(getPlayerMark(), getPlayerNames());
+            gameController.toggleState(true)
             toggleModal(1)
         });
+
+        const playAgainButton = document.querySelector('.playAgainButton');
+        playAgainButton.addEventListener('click', () => {
+            toggleModal(2);
+            resetBoardElements()
+            gameController.toggleState(true);
+            gameBoard.resetBoard();
+        })
+        const exitButton = document.querySelector('.exitButton');
+        exitButton.addEventListener('click', () => {
+            toggleModal(2)
+            toggleModal(1)
+            resetBoardElements()
+            gameBoard.resetBoard();
+            gameController.resetPlayers();
+            gameController.toggleState(false);
+        })
     }
 
     // Returns an array of the values in playerName inputs
@@ -271,14 +297,24 @@ const displayController = (function() {
         return Array.from(inputMarks).map((element) => Number(element.dataset.mark));
     }
 
+    // Toggle menu modal with (1) and endRound with (2)
+    function toggleModal(target) {
+        const targetModal = (target == 1) ? document.querySelector('.menu') : document.querySelector('.roundEnd')
+        targetModal.classList.toggle('show')
+    }
+
+    // Changes text on endRound modal
+    function changeWinningText(result) {
+        const roundResultElement = document.querySelector('.roundResult')
+        if (result == 'tie') {
+            roundResultElement.textContent = `It's a tie!`
+        } else {
+            roundResultElement.textContent = `${result.getName()} won!`
+        }
+    }
+
     createGrid(gameBoard.getBoard());
     initModal()
 
-    return {resetBoardElements, getPlayerNames, getPlayerMark}
+    return {resetBoardElements, getPlayerNames, getPlayerMark, toggleModal, changeWinningText}
 })()
-
-
-function toggleModal(target) {
-    const targetModal = (target == 1) ? document.querySelector('.menu') : document.querySelector('.roundEnd')
-    targetModal.classList.toggle('show')
-}
