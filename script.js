@@ -196,8 +196,8 @@ const gameController = (function() {
 
 const displayController = (function() {
     const imageUrls = [
-        ["url('/img/cross-outline.svg'", "url('/img/cross.svg'"],
-        ["url('/img/circle-outline.svg'", "url('/img/circle.svg'"],
+        ["url('img/cross-outline.svg'", "url('img/cross.svg'"],
+        ["url('img/circle-outline.svg'", "url('img/circle.svg'"],
     ]
 
     // Creates all elements based on values in passed array
