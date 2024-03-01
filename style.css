@@ -251,6 +251,8 @@ div.playerMark {
 .turn {
     position: absolute;
     box-shadow: 0px 0px 25px 10px rgba(100, 100, 100, 1);
+    visibility: hidden;
+    opacity: 0;
 }
 
 .turn {
@@ -303,8 +305,7 @@ div.playerMark {
     text-align: center;
 }
 
-.player1score,
-.player2score {
+.playerscoreboard {
     display: grid;
     grid-template-columns: 1fr 50px;
     justify-items: center;

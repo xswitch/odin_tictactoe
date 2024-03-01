@@ -169,6 +169,12 @@ const gameController = (function() {
         currentPlayer = ''
     }
 
+    // Returns current player name
+    function getCurrentPlayerName() {
+        console.log(currentPlayer.getName());
+        return currentPlayer.getName();
+    }
+
     return {
         checkForWinner,
         getMark,
@@ -178,6 +184,7 @@ const gameController = (function() {
         getState,
         toggleState,
         resetPlayers,
+        getCurrentPlayerName,
     }
 })()
 
@@ -217,6 +224,7 @@ const displayController = (function() {
         e.target.style.backgroundImage = imageUrls[gameController.getMark()[1]][1]
         e.target.classList.remove('free');
         gameController.playRound(row, cell)
+        updateTurnElement()
     }
 
     // If cell is available, change background to hover version
@@ -264,7 +272,9 @@ const displayController = (function() {
         startGameButton.addEventListener('click', () => {
             gameController.setupPlayers(getPlayerMark(), getPlayerNames());
             gameController.toggleState(true)
+            toggleExtras(true)
             toggleModal(1)
+            updateTurnElement()
         });
 
         const playAgainButton = document.querySelector('.playAgainButton');
@@ -273,12 +283,14 @@ const displayController = (function() {
             resetBoardElements()
             gameController.toggleState(true);
             gameBoard.resetBoard();
+            updateTurnElement()
         })
         const exitButton = document.querySelector('.exitButton');
         exitButton.addEventListener('click', () => {
             toggleModal(2)
             toggleModal(1)
             resetBoardElements()
+            toggleExtras(false)
             gameBoard.resetBoard();
             gameController.resetPlayers();
             gameController.toggleState(false);
@@ -312,6 +324,29 @@ const displayController = (function() {
         } else {
             roundResultElement.textContent = `${result.getName()} won!`
         }
+    }
+
+    function toggleExtras(state) {
+        const scoreboardElement = document.querySelector('.scoreboard')
+        const turnElement = document.querySelector('.turn')
+        if (state) {
+            scoreboardElement.classList.add('show')
+            turnElement.classList.add('show')
+        } else if (!state) {
+            scoreboardElement.classList.remove('show')
+            turnElement.classList.remove('show')
+        }
+    }
+
+    function updateScoreboard() {
+
+    }
+
+    function updateTurnElement() {
+        const currentName = document.querySelector('.currentPlayer')
+        const currentIcon = document.querySelector('.currentIcon')
+        currentName.textContent = gameController.getCurrentPlayerName();
+        currentIcon.style.backgroundImage = imageUrls[gameController.getMark()[1]][1];
     }
 
     createGrid(gameBoard.getBoard());
