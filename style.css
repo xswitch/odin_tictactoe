@@ -242,3 +242,31 @@ div.playerMark {
     background-color: rgba(70, 70, 70, 0.7);
     cursor: pointer;
 }
+
+/* SCOREBOARD AND PLAYER TURN */
+
+.scoreboard,
+.turn {
+    position: absolute;
+    box-shadow: 0px 0px 25px 10px rgba(100, 100, 100, 1);
+}
+
+.turn {
+    top: 0;
+    right: 0;
+    height: 100px;
+    width: 100px;
+    background-color: rgba(40, 40, 40, 1);
+    z-index: 0;
+    border-radius: 0% 0% 0% 15px;
+}
+
+.scoreboard {
+    top: calc(50% - 100px);
+    right: 0;
+    width: 100px;
+    height: 200px;
+    background-color: rgba(40, 40, 40, 1);
+    z-index: 0;
+    border-radius: 15px 0% 0% 15px;
+}

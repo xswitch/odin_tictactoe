@@ -103,6 +103,7 @@ const gameController = (function() {
         displayController.changeWinningText(result);
         if (result != 'tie') currentPlayer.updateScore()
         currentPlayer = players[0];
+        console.table([players[0].getScore(),players[1].getScore()])
         toggleState(false)
         displayController.toggleModal(2);
     }
