@@ -86,7 +86,7 @@ const gameController = (function() {
     function playRound(x, y) {
         // Add mark if empty
         // Checks for winning conditions, if not change mark
-        if (gameBoard.addMark(x, y, marks[currentPlayer.getMark()]) == false) return;
+        if (gameBoard.addMark(x, y, currentPlayer.getMark()) == false) return;
         if (checkForWinner(gameBoard.getBoard())) {
             endRound(currentPlayer.getMark())
             if (checkForTie(gameBoard.getBoard()));
@@ -98,6 +98,8 @@ const gameController = (function() {
     }
 
     function endRound(result) {
+        currentPlayer.updateScore()
+        console.log(`${currentPlayer.getName()} Wins. Current Score: ${currentPlayer.getScore()}`);
         currentPlayer = players[0];
         console.log(result);
         gameBoard.resetBoard();
@@ -112,8 +114,11 @@ const gameController = (function() {
         return marks.indexOf(currentPlayer.getMark());
     }
 
+    // Player factory
     function createPlayer(mark, name) {
         let score = 0;
+
+        if (name == '') name = `Player ${players.length+1}`
     
         function getName() {
             return name;
