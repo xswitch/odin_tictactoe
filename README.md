@@ -1,5 +1,7 @@
 # odin_tictactoe
 
+> Add icons to player creation to keep it more centralized
+
 > Events for winning, losing, and ties
 >> Update score - Give option to play again and change mark
 >> Remove ability to place marks until a new game is started.
@@ -18,3 +20,5 @@
 
 DOING NOW
 > Fixing winning conditions and events
+
+>> Just added playing state, toggle off on round end, toggle on on round start

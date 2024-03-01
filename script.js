@@ -45,6 +45,7 @@ const gameController = (function() {
     const marks = ['X', 'O'];
     let currentPlayer;
     const players = [];
+    let playing = true;
 
     // Checks if all values in an array matches "currentMark"
     function allEqual(array) {
@@ -86,6 +87,7 @@ const gameController = (function() {
     function playRound(x, y) {
         // Add mark if empty
         // Checks for winning conditions, if not change mark
+        if (!playing) return;
         if (gameBoard.addMark(x, y, currentPlayer.getMark()) == false) return;
         if (checkForWinner(gameBoard.getBoard())) {
             endRound(currentPlayer.getMark())
@@ -101,9 +103,7 @@ const gameController = (function() {
         currentPlayer.updateScore()
         console.log(`${currentPlayer.getName()} Wins. Current Score: ${currentPlayer.getScore()}`);
         currentPlayer = players[0];
-        console.log(result);
-        gameBoard.resetBoard();
-        displayController.resetBoardElements();
+        toggleState(false)
     }
 
     function getMark() {
@@ -112,6 +112,14 @@ const gameController = (function() {
 
     function getMarkIndex() {
         return marks.indexOf(currentPlayer.getMark());
+    }
+
+    function getState() {
+        return playing;
+    }
+
+    function toggleState(newState) {
+        (newState == true) ? playing = true : playing = false;
     }
 
     // Player factory
@@ -160,7 +168,7 @@ const gameController = (function() {
         changePlayer,
         playRound,
         setupPlayers,
-        players,
+        getState,
     }
 })()
 
@@ -196,7 +204,7 @@ const displayController = (function() {
 
     // If cell is available, play round on that cell
     function cellClick(e, row, cell) {
-        if (!gameBoard.isAvailable(row, cell)) return;
+        if (!gameBoard.isAvailable(row, cell) || gameController.getState() == false) return;
         e.target.style.backgroundImage = imageUrls[gameController.getMark()[1]][1]
         e.target.classList.remove('free');
         gameController.playRound(row, cell)
@@ -204,7 +212,7 @@ const displayController = (function() {
 
     // If cell is available, change background to hover version
     function cellHover(e, row, cell) {
-        if (!gameBoard.isAvailable(row, cell)) return;
+        if (!gameBoard.isAvailable(row, cell) || gameController.getState() == false) return;
         e.target.style.backgroundImage = imageUrls[gameController.getMark()[1]][0]
 
     }
