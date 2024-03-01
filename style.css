@@ -58,7 +58,9 @@ main {
 /* MODAL */
 
 .menu.show,
-.roundEnd.show {
+.roundEnd.show,
+.scoreboard.show,
+.turn.show {
     visibility: visible;
     opacity: 1;
 }
@@ -264,9 +266,39 @@ div.playerMark {
 .scoreboard {
     top: calc(50% - 100px);
     right: 0;
-    width: 100px;
-    height: 200px;
+    width: 250px;
     background-color: rgba(40, 40, 40, 1);
     z-index: 0;
     border-radius: 15px 0% 0% 15px;
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 25px 15px 25px 15px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title>h2 {
+    width: 100%;
+    color: white;
+    text-shadow: gray 1px 0 10px;
+    text-align: center;
+}
+
+.player1score,
+.player2score {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-bottom: 2px solid dimgray;
+
+}
+
+.scores {
+    display: grid;
+    gap: 25px;
 }
