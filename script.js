@@ -171,7 +171,6 @@ const gameController = (function() {
 
     // Returns current player name
     function getCurrentPlayerName() {
-        console.log(currentPlayer.getName());
         return currentPlayer.getName();
     }
 
