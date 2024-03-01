@@ -175,6 +175,10 @@ const gameController = (function() {
         return currentPlayer.getName();
     }
 
+    function getPlayerInfo() {
+        return [[players[0].getName(), players[0].getScore()], [players[1].getName(), players[1].getScore()]]
+    }
+
     return {
         checkForWinner,
         getMark,
@@ -185,6 +189,7 @@ const gameController = (function() {
         toggleState,
         resetPlayers,
         getCurrentPlayerName,
+        getPlayerInfo,
     }
 })()
 
@@ -225,6 +230,7 @@ const displayController = (function() {
         e.target.classList.remove('free');
         gameController.playRound(row, cell)
         updateTurnElement()
+        updateScoreboard()
     }
 
     // If cell is available, change background to hover version
@@ -275,6 +281,7 @@ const displayController = (function() {
             toggleExtras(true)
             toggleModal(1)
             updateTurnElement()
+            updateScoreboard()
         });
 
         const playAgainButton = document.querySelector('.playAgainButton');
@@ -339,7 +346,14 @@ const displayController = (function() {
     }
 
     function updateScoreboard() {
+        const names = document.querySelectorAll('.scoreName')
+        const scores = document.querySelectorAll('.scoreValue')
 
+        const playerInfo = gameController.getPlayerInfo();
+        playerInfo.forEach((player, index) => {
+            names[index].textContent = player[0]
+            scores[index].textContent = player[1]
+        })
     }
 
     function updateTurnElement() {
@@ -352,5 +366,5 @@ const displayController = (function() {
     createGrid(gameBoard.getBoard());
     initModal()
 
-    return {resetBoardElements, getPlayerNames, getPlayerMark, toggleModal, changeWinningText}
+    return {resetBoardElements, getPlayerNames, getPlayerMark, toggleModal, changeWinningText, updateScoreboard}
 })()
