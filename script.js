@@ -43,7 +43,7 @@ const gameBoard = (function () {
 const gameController = (function() {
 
     const marks = ['X', 'O'];
-    let currentMark = marks[0];
+    let currentPlayer;
     const players = [];
 
     // Checks if all values in an array matches "currentMark"
@@ -86,34 +86,34 @@ const gameController = (function() {
     function playRound(x, y) {
         // Add mark if empty
         // Checks for winning conditions, if not change mark
-        if (gameBoard.addMark(x, y, currentMark) == false) return;
+        if (gameBoard.addMark(x, y, marks[currentPlayer.getMark()]) == false) return;
         if (checkForWinner(gameBoard.getBoard())) {
-            endRound(currentMark)
+            endRound(currentPlayer.getMark())
             if (checkForTie(gameBoard.getBoard()));
         } else if (checkForTie(gameBoard.getBoard())) {
             endRound('tie')
         } else {
-            changeMark()
+            changePlayer()
         }
     }
 
     function endRound(result) {
-        currentMark = marks[0];
+        currentPlayer = players[0];
+        console.log(result);
         gameBoard.resetBoard();
         displayController.resetBoardElements();
     }
 
     function getMark() {
-        return [currentMark, getMarkIndex()];
+        return [currentPlayer.getMark(), getMarkIndex()];
     }
 
     function getMarkIndex() {
-        return marks.indexOf(currentMark);
+        return marks.indexOf(currentPlayer.getMark());
     }
 
     function createPlayer(mark, name) {
         let score = 0;
-        let currentMark = mark;
     
         function getName() {
             return name;
@@ -128,7 +128,7 @@ const gameController = (function() {
         }
     
         function getMark() {
-            return currentMark;
+            return mark;
         }
     
         return {
@@ -142,17 +142,17 @@ const gameController = (function() {
     function setupPlayers(inputMarks, inputNames) {
         players.push(createPlayer(marks[inputMarks[0]], inputNames[0]))
         players.push(createPlayer(marks[inputMarks[1]], inputNames[1]))
-        console.log(players);
+        currentPlayer = players[0]
     }
 
-    function changeMark() {
-        (currentMark == marks[0]) ? currentMark = marks[1] : currentMark = marks[0];
+    function changePlayer() {
+        (currentPlayer == players[0]) ? currentPlayer = players[1] : currentPlayer = players[0];
     }
 
     return {
         checkForWinner,
         getMark,
-        changeMark,
+        changePlayer,
         playRound,
         setupPlayers,
         players,
