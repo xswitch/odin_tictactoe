@@ -11,8 +11,8 @@
 >> Scoreboard - start/restart buttons - choose mark - who's turn it is - Better board
 >>> Scoreboard - Always show while showing the game
 >>> Start/restart buttons - Display as a modal before first game and after a game
->>> Choose mark - In same modal as start/restart buttons
->>> Who's turn it is - Show player name/number and mark in game window
+>>> Choose mark - In menu modal
+>>> Who's turn it is - Show player name/number and mark in game window (Small window over gameWindow with icon of mark then player name)
 
 > Remove auto restart, show resulting board until restart is pressed.
 >> Stop reset on roundEnd
@@ -22,3 +22,11 @@
 
 DOING NOW
 > Finish menu modal, then endRound modal
+
+>> Maybe change border on mark icons
+>> Try out different spacing
+>> Add functionality to buttons
+
+> getting info from modal
+>> Creating players with info
+>>> use players to play game

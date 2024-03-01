@@ -44,6 +44,7 @@ const gameController = (function() {
 
     const marks = ['X', 'O'];
     let currentMark = marks[0];
+    const players = [];
 
     // Checks if all values in an array matches "currentMark"
     function allEqual(array) {
@@ -110,6 +111,40 @@ const gameController = (function() {
         return marks.indexOf(currentMark);
     }
 
+    function createPlayer(mark, name) {
+        let score = 0;
+        let currentMark = mark;
+    
+        function getName() {
+            return name;
+        }
+    
+        function updateScore() {
+            score++;
+        }
+    
+        function getScore() {
+            return score;
+        }
+    
+        function getMark() {
+            return currentMark;
+        }
+    
+        return {
+            updateScore,
+            getScore,
+            getMark,
+            getName,
+        }
+    }
+
+    function setupPlayers(inputMarks, inputNames) {
+        players.push(createPlayer(marks[inputMarks[0]], inputNames[0]))
+        players.push(createPlayer(marks[inputMarks[1]], inputNames[1]))
+        console.log(players);
+    }
+
     function changeMark() {
         (currentMark == marks[0]) ? currentMark = marks[1] : currentMark = marks[0];
     }
@@ -119,6 +154,8 @@ const gameController = (function() {
         getMark,
         changeMark,
         playRound,
+        setupPlayers,
+        players,
     }
 })()
 
@@ -183,38 +220,50 @@ const displayController = (function() {
         })
     }
 
-    createGrid(gameBoard.getBoard());
+    // Sets up newGame modal
+    function initModal() {
+        // Changes marks and matches them to their respective indexes.
+        const switchMarkElement = document.querySelector('.changeMark');
+        switchMarkElement.addEventListener('click', () => {
+            const markElements = document.querySelectorAll('.playerMark');
+            markElements.forEach(element => {
+                if (Number(element.dataset.mark) == 0) {
+                    element.dataset.mark = 1;
+                    element.style.backgroundImage = imageUrls[1][1];
+                } else {
+                    element.dataset.mark = 0;
+                    element.style.backgroundImage = imageUrls[0][1];
+                }
+            })
+        })
 
-    return {resetBoardElements,}
+        // Passes marks and names to player creating function in gameController.
+        const startGameButton = document.querySelector('.startGame');
+        startGameButton.addEventListener('click', () => {
+            gameController.setupPlayers(getPlayerMark(), getPlayerNames());
+            toggleModal(1)
+        });
+    }
+
+    // Returns an array of the values in playerName inputs
+    function getPlayerNames() {
+        const inputElement = document.querySelectorAll('.playerName')
+        const inputValues = Array.from(inputElement).map((element) => element.value);
+        return inputValues;
+    }
+
+    // Return an array with what mark player1 and 2 has chosen
+    function getPlayerMark() {
+        const inputMarks = document.querySelectorAll('.playerMark');
+        return Array.from(inputMarks).map((element) => Number(element.dataset.mark));
+    }
+
+    createGrid(gameBoard.getBoard());
+    initModal()
+
+    return {resetBoardElements, getPlayerNames, getPlayerMark}
 })()
 
-function createPlayer(mark) {
-    let score = 0;
-    let currentMark = mark;
-
-    function updateScore() {
-        score++;
-    }
-
-    function getScore() {
-        return score;
-    }
-
-    function changeMark(newMark) {
-        currentMark = newMark;
-    }
-
-    function getMark() {
-        return currentMark;
-    }
-
-    return {
-        updateScore,
-        getScore,
-        changeMark,
-        getMark,
-    }
-}
 
 function toggleModal(target) {
     const targetModal = (target == 1) ? document.querySelector('.menu') : document.querySelector('.roundEnd')
